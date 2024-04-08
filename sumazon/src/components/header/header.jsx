@@ -1,16 +1,15 @@
 import './header.css'
 import su_logo from '../../assets/sumazon_logo.png'
-import Navigation from './navigation/navigation'
+import Navigation from './navigation'
+import Tailing from './tailing'
 
 function Header() {
   return (
-    <>
-      <div className="header_container">
-        <img src={su_logo} alt="Sumazon logo"/>
-        <Navigation />
-        <h1>tailing</h1>
-      </div>
-    </>
+    <div className="header_container">
+      <img src={su_logo} alt="Sumazon logo"/>
+      <Navigation />
+      <Tailing />
+    </div>
   )
 }
   

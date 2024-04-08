@@ -10,3 +10,17 @@
     width: 50px;
     height: 72px;
 }
+
+.navigation_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 50%;
+}
+
+.tailing_component{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 50%;
+}
