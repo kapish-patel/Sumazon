@@ -3,7 +3,7 @@ function Help() {
   return (
     <div className="container">
       <div className="top">
-        <h1>help</h1>
+        <p>help</p>
       </div>
       <div className="bottom">
         <a href="">Get Help</a>

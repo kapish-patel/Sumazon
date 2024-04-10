@@ -3,7 +3,7 @@ function Company() {
   return (
     <div className="container">
       <div className="top">
-        <h1>Company</h1>
+        <p>Company</p>
       </div>
       <div className="bottom">
         <a href="">About Sumazon</a>

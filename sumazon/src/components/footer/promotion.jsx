@@ -3,7 +3,7 @@ function Promotion() {
   return (
     <div className="container">
       <div className="top">
-        <h1>Promotion</h1>
+        <p>Promotion</p>
       </div>
       <div className="bottom">
         <a href="">Student</a>

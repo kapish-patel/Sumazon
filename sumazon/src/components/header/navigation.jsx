@@ -1,11 +1,21 @@
 function Navigation() {
   return(
     <div className="navigation_container">
-        <h1>New and Featured</h1>
-        <h1>Mens</h1>
-        <h1>Womens</h1>
-        <h1>More</h1>
-        <h1>Best seller</h1>
+      <div className="navigation_element">
+        <a href="">New and Featured</a>
+      </div>
+      <div className="navigation_element"> 
+        <a href="">Mens</a>
+      </div>
+      <div className="navigation_element">
+        <a href="">Womens</a>
+      </div>
+      <div className="navigation_element">
+        <a href="">Best Seller</a>
+      </div>
+      <div className="navigation_element">
+        <a href="">More</a>
+      </div>
     </div>
   ) 
 }
