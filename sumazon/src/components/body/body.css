@@ -4,13 +4,16 @@
     width: 100%;
 }
 
+.crousels_component:last-child{
+    margin-bottom: 80px;
+}
+
 .seasons_component{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
     width: auto;
-    height: 100vh;
 }
 
 .seasons_image_container{
@@ -36,7 +39,6 @@
 .seasons_info_container{
     display: flex;
     flex-direction: column;
-    height: 30vh;
     width: 100%;
     justify-content: start;
     align-items: center;

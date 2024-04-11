@@ -91,18 +91,3 @@
     outline: none;
 }
 
-.icon_container{
-    font-size: 18px;
-    color: #000000;
-    height: 35px;
-    width: 35px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-}
-
-.icon_container:hover{
-    background-color: #d3d3d3;
-}
-

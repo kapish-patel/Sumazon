@@ -5,13 +5,13 @@ import './body.css'
 
 function Body() {
     return (
-      <>
-        <div className="body_container">
-          <Seasons />
-          <Trending />
+      <div className="body_container">
+        <Seasons />
+        <div className="crousels_component">
           <Category />
+          <Trending />
         </div>
-      </>
+      </div>
     )
   }
   
