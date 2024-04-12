@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 
 function Company() {
   return (
@@ -6,12 +7,12 @@ function Company() {
         <p>Company</p>
       </div>
       <div className="bottom">
-        <a href="">About Sumazon</a>
-        <a href="">News</a>
-        <a href="">Careers</a>
-        <a href="">Investors</a>
-        <a href="">Purpose</a>
-        <a href="">Sustainability</a>
+        <NavLink to="/aboutus">About Sumazon</NavLink>
+        <NavLink to="/aboutus">News</NavLink>
+        <NavLink to="/aboutus">Careers</NavLink>
+        <NavLink to="/aboutus">Investors</NavLink>
+        <NavLink to="/aboutus">Purpose</NavLink>
+        <NavLink to="/aboutus">Sustainability</NavLink>
       </div>
     </div>
   );

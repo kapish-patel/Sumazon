@@ -8,7 +8,7 @@
     font-family: 'montserrat', sans-serif;
 }
 
-.header_container > img{
+.header_container > a > img{
     width: 50px;
     height: 72px;
 }
@@ -42,6 +42,15 @@
     color: #000000;
 }
 
+.navigation_element > .active{
+    text-decoration: underline;
+    color: #000000;
+}
+
+.navigation_element > .pending{
+    text-decoration: none;
+    color: #000000;
+}
 
 .tailing_component{
     display: flex;

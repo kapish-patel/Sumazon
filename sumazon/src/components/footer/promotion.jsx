@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 
 function Promotion() {
   return (
@@ -6,11 +7,11 @@ function Promotion() {
         <p>Promotion</p>
       </div>
       <div className="bottom">
-        <a href="">Student</a>
-        <a href="">Military</a>
-        <a href="">Teacher</a>
-        <a href="">First Responders & Medical Professionals</a>
-        <a href="">Birthday</a>
+        <NavLink to="/promotions">Student</NavLink>
+        <NavLink to="/promotions">Military</NavLink>
+        <NavLink to="/promotions">Teacher</NavLink>
+        <NavLink to="/promotions">First Responders & Medical Professionals</NavLink>
+        <NavLink to="/promotions">Birthday</NavLink>
       </div>
     </div>
   );
