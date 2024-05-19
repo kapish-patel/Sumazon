@@ -5,16 +5,16 @@ function Navigation() {
   return(
     <div className="navigation_container">
       <div className="navigation_element">
-        <NavLink to="/new" className={({ isActive, isPending }) =>
-    isPending ? "pending" : isActive ? "active" : ""}>New and Featured</NavLink>
+        <NavLink to="/clothing" className={({ isActive, isPending }) =>
+    isPending ? "pending" : isActive ? "active" : ""}>Clothing</NavLink>
       </div>
       <div className="navigation_element"> 
-        <NavLink to="/mens" className={({ isActive, isPending }) =>
-    isPending ? "pending" : isActive ? "active" : ""}>Mens</NavLink>
+        <NavLink to="/sports" className={({ isActive, isPending }) =>
+    isPending ? "pending" : isActive ? "active" : ""}>Sports & fitness</NavLink>
       </div>
       <div className="navigation_element">
-        <NavLink to="/women" className={({ isActive, isPending }) =>
-    isPending ? "pending" : isActive ? "active" : ""}>Womens</NavLink>
+        <NavLink to="/electronics" className={({ isActive, isPending }) =>
+    isPending ? "pending" : isActive ? "active" : ""}>Electronics</NavLink>
       </div>
       <div className="navigation_element">
         <NavLink to="/bestseller" className={({ isActive, isPending }) =>
