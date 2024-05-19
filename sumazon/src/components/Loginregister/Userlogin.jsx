@@ -18,7 +18,7 @@ function UserLogin() {
   const handleLogInBtnClick = (e) => {
     e.preventDefault();
     console.log("login button clicked");
-    const credentials = {email: userEmail, password: userPassword };
+    const credentials = { email: userEmail, password: userPassword };
     dispatch(loginCustomer(credentials));
   };
 
