@@ -2,15 +2,11 @@
 import {createBrowserRouter} from 'react-router-dom';
 import Layout from './layout';
 import Home from './pages/NavPages/Home';
-import Bestseller from './pages/NavPages/Bestseller';
-import More from './pages/NavPages/More';
 import NotFound from './components/common/NotFound';
 import Promotion from './components/common/promotions';
 import CompanyPage from './components/common/CompanyPage';
 import HelpPage from './components/common/HelpPage';
-import Clothing from './pages/NavPages/Clothing';
-import Sports from './pages/NavPages/Sports';
-import Electronics from './pages/NavPages/Electronics';
+import Category from './components/category/Category';
 import LoginLayout from './pages/LoginRegister/loginlayout';
 import PrivateRoute from './PrivateRoute';
 import UserLogin from './components/Loginregister/Userlogin';
@@ -33,23 +29,23 @@ const AppRouter = createBrowserRouter([
           },
           {
             path: 'clothing',
-            element: <Clothing />
+            element: <Category name="clothing" />
           },
           {
             path: 'sports',
-            element: <Sports />
+            element: <Category name="sports" />
           },
           {
             path: 'electronics',
-            element: <Electronics />
+            element: <Category name="electronics" />
           },
           {
             path: 'bestseller',
-            element: <Bestseller />
+            element: <Category name="bestSeller" />
           },
           {
             path: 'more',
-            element: <More />
+            element: <Category name="more" />
           },
           {
             path: 'promotions',

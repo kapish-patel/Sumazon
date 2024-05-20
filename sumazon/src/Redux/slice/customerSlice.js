@@ -32,6 +32,22 @@ export const loginCustomer = createAsyncThunk(
     return response.json();
 });
 
+export const updateCustomer = createAsyncThunk(
+    'customer/updateCustomer', async (customerDetails) => {
+    const response = await fetch(`api/customers`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },  
+        body: JSON.stringify(customerDetails),  
+    });
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || 'Failed to update customer');
+    }
+    return data;
+});
+
 
 const initialState = {
     customerDetails: getEmptyCustomerDetails(),
@@ -86,6 +102,19 @@ export const customers = createSlice({
                 }
                 else
                     state.isLoggedIn = false;
+            })
+
+            .addCase(updateCustomer.fulfilled, (state, action) => {
+                if (action.payload.status){ 
+                    state.customerDetails = action.payload.data;
+                    state.status = 'Succeeded';
+
+                    // Store the customer details in local storage
+                    localStorage.setItem('customerDetails', JSON.stringify(state.customerDetails));
+                    localStorage.setItem('isLoggedIn', state.isLoggedIn);
+                }
+                else
+                    state.status = 'Failed';
             })
         }
     }
