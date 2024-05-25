@@ -41,11 +41,7 @@ export const updateCustomer = createAsyncThunk(
         },  
         body: JSON.stringify(customerDetails),  
     });
-    const data = await response.json();
-    if (!response.ok) {
-        throw new Error(data.message || 'Failed to update customer');
-    }
-    return data;
+    return response.json();
 });
 
 

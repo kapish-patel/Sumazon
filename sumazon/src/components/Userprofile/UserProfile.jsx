@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCustomer, logout } from "../../Redux/slice/customerSlice";
 import { useNavigate } from "react-router-dom";
@@ -16,19 +16,17 @@ function UserProfile() {
   const [password, setPassword] = useState(customer.password);
   const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-
-  });
-
   const handleUpdateBtnClick = (e) => {
     e.preventDefault();
     console.log("Update button clicked");
     const customerDetails = {
       name: username,
+      originalEmail: customer.email,
       email: email,
       phone: phone,
       address: address,
       password: password,
+      id: customer.id,
     };
     dispatch(updateCustomer(customerDetails))
     setIsEditing(false);
@@ -85,8 +83,11 @@ function UserProfile() {
               id="email"
               name="email"
               placeholder="Email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               value={email}
-              readOnly
+              readOnly={!isEditing}
             />
           </div>
           <div className="form-group">

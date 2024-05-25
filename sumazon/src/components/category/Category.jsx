@@ -42,7 +42,7 @@ useEffect(() => {
     <div className="main-component">
       <div className="cards-component">
         {currentCategoryProducts.map((product) => (
-          <Card key={product.product_id} product={product} />
+          <Card key={product.id} product={product} />
         ))}
       </div>
     </div>

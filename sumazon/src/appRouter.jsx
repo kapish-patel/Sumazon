@@ -11,6 +11,7 @@ import LoginLayout from './pages/LoginRegister/loginlayout';
 import PrivateRoute from './PrivateRoute';
 import UserLogin from './components/Loginregister/Userlogin';
 import UserRegister from './components/Loginregister/Userregister';
+import Product from './components/Product/Product';
 import UserProfile from './components/Userprofile/UserProfile';
 import Cart from './pages/NavPages/Cart';
 
@@ -26,6 +27,10 @@ const AppRouter = createBrowserRouter([
           {
             path: '',
             element: <Home />
+          },
+          {
+            path: 'product/:id',
+            element: <Product />
           },
           {
             path: 'clothing',
