@@ -12,11 +12,10 @@ const initialState = {
     products: [],
     status: 'idle',
     currentSelectedProduct: {},
-    productCart: []
+    productCart: {}
 };
 
 // check if local storage has data
-
 const localProducts = JSON.parse(localStorage.getItem('products'));
 // const localCurrentProduct = JSON.parse(localStorage.getItem('currentProduct'));
 const localProductCart = JSON.parse(localStorage.getItem('productCart'));
@@ -44,20 +43,31 @@ export const productsSlice = createSlice({
         },
 
         addToCart: (state, action) => {
-            state.productCart.push(action.payload);
-            // save to local storage
+            const productId = action.payload;
+            if (state.productCart[productId]) {
+                state.productCart[productId] += 1; // Increment quantity if product already in cart
+            } else {
+                state.productCart[productId] = 1; // Add new product with quantity
+            }
+            localStorage.setItem('productCart', JSON.stringify(state.productCart));
+        },
+
+        removeOneFromCart: (state, action) => {
+            const productId = action.payload;
+            if (state.productCart[productId] > 1) {
+                state.productCart[productId] -= 1; // Decrement quantity if product already in cart
+            } else {
+                delete state.productCart[productId]; // Remove product if quantity is 1
+            }
             localStorage.setItem('productCart', JSON.stringify(state.productCart));
         },
 
         removeFromCart: (state, action) => {
-            console.log("Removing from cart", action.payload);
-            const updatedCart = state.productCart.filter(productId => productId !== action.payload);
+            const productId = action.payload;
+            delete state.productCart[productId];
+            localStorage.setItem('productCart', JSON.stringify(state.productCart));
+        },
 
-            // save to local storage
-            localStorage.setItem('productCart', JSON.stringify(updatedCart));
-            return { ...state, productCart: updatedCart };
-
-        }
     },
     extraReducers: (builder) => {
         builder
@@ -72,4 +82,4 @@ export const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { setCurrentProduct, addToCart, removeFromCart } = productsSlice.actions;
+export const { setCurrentProduct, addToCart, removeFromCart, removeOneFromCart } = productsSlice.actions;

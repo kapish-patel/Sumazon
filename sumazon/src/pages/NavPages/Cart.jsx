@@ -1,40 +1,53 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import CartItem from './CartItem'
 import './Cart.css'
 
 function Cart() {
-  // const dispatch = useDispatch();
   const cart = useSelector(state => state.products.productCart);
-  const cartProducts = useSelector(state => state.products.products.filter(product => cart.includes(product.id)));
+  const products = useSelector(state => state.products.products);
+  const [total, setTotal] = useState(0);
 
-  // start working with changing the schema of cart make sure to add cart product quantity
+  useEffect(() => {
+    const cartProducts = products.filter(product => cart[product.id]);
+    const newTotal = cartProducts.reduce((accum, product) => {
+      return accum + (cart[product.id] * product.price);
+    }, 0);
+    setTotal(newTotal);
+  }, [cart, products]);
+
+  const cartProducts = products.filter(product => cart[product.id]);
 
   return (
-    cart.length === 0 ? 
+    Object.keys(cart).length === 0 ? 
     <div className="empty-cart-container">
       <div className="empty-cart">
         <h1>Your cart is empty</h1>
       </div>
     </div> :
-
     <div>
       <div className="main-component">
         <div className="header">
           <h1>cart</h1>
         </div>
         <div className="content">
-          {cartProducts.map(product => <CartItem key={product.id} product={product} />)}
+          {cartProducts.map(product => (
+            <CartItem 
+              key={product.id} 
+              product={product} 
+              quantity={cart[product.id]} 
+              subTotal={cart[product.id] * product.price} 
+            />
+          ))}
         </div>
         <div className="footer-content">
           <div className="footer">
-            <h3>Total: $100</h3>
+            <h3>Total: ${total.toFixed(2)}</h3>
             <div className="form-group">
-            <button type="submit">
-              Checkout 
-            </button>
-          </div>
+              <button type="submit">
+                Checkout 
+              </button>
+            </div>
           </div>
         </div>
       </div>

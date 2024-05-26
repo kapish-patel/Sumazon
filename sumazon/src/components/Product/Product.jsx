@@ -2,12 +2,16 @@ import "./Product.css";
 import Rating from "@mui/material/Rating";
 import { CheckCircleOutline } from "@mui/icons-material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
     setCurrentProduct,
     addToCart,
     removeFromCart,
+    removeOneFromCart,
 } from "../../Redux/slice/productSlice";
 
 import { useState } from "react";
@@ -32,8 +36,8 @@ function Product() {
         (state) => state.products.currentSelectedProduct
     );
 
-    // Check if product is already in cart
-    const isProductInCart = cart.includes(id);
+    // Check if product is already in cart where cart is a map of product id and quantity
+    const isProductInCart = cart[id] ? true : false;
 
     const [isAddedToCart, setIsAddedToCart] = useState(isProductInCart);
 
@@ -46,6 +50,19 @@ function Product() {
         console.log("Removing from cart", id);
         dispatch(removeFromCart(id));
         setIsAddedToCart(false);
+    };
+
+    const handleAddBtnClick = (e) => {
+        e.stopPropagation();
+        dispatch(addToCart(product.id));
+    };
+
+    const handMinusBtnClick = (e) => {
+        e.stopPropagation();
+        dispatch(removeOneFromCart(product.id));
+        if (cart[product.id] === 1) {
+            setIsAddedToCart(false);
+        }
     };
 
     return (
@@ -76,9 +93,28 @@ function Product() {
                     <div className="product-description">
                         <p>{currentProduct.description}</p>
                         {isAddedToCart ? (
-                            <p className="added-to-cart">Added to Cart</p>
+                            <>
+                                <p className="added-to-cart">
+                                    Added to Cart {cart[id]}
+                                </p>
+                                <div className="quantity-change-component">
+                                    <div
+                                        className="icon_container"
+                                        onClick={handleAddBtnClick}
+                                    >
+                                        <FontAwesomeIcon icon={faPlus} />
+                                    </div>
+                                    <div
+                                        className="icon_container"
+                                        onClick={handMinusBtnClick}
+                                    >
+                                        <FontAwesomeIcon icon={faMinus} />
+                                    </div>
+                                </div>
+                            </>
                         ) : null}
                     </div>
+
                     <div className="form-group cart-form">
                         <button type="submit" onClick={handleAddtoCartClick}>
                             <ShoppingCartIcon /> Add to Cart
@@ -90,6 +126,7 @@ function Product() {
                                 className="remove-button"
                                 onClick={handleRemoveFromCart}
                             >
+                                <RemoveShoppingCartIcon />
                                 Remove from Cart
                             </button>
                         ) : null}

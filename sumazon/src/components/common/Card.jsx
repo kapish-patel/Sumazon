@@ -1,13 +1,22 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {addToCart} from '../../Redux/slice/productSlice';
+import {useDispatch} from 'react-redux';
 import './Card.css';
 
 function Card({product}) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleCardClick = () => {
     navigate(`/product/${product.id}`);
   };
+
+  const handleAddtoCartBtnClick = (e) => {
+    e.stopPropagation();
+    dispatch(addToCart(product.id));
+  }
 
   return (
     <div className="card" onClick={handleCardClick}>
@@ -17,7 +26,11 @@ function Card({product}) {
         <p className="card-description">{product.description}</p>
         <div className="bottom-container">
           <p className="card-price">${product.price}</p>
-          <button className="card-button">Add to Cart</button>
+          <div className="form-group" onClick={handleAddtoCartBtnClick}>
+            <button>
+              <ShoppingCartIcon /> Add to cart
+            </button>
+          </div>
         </div>
       </div>
     </div>

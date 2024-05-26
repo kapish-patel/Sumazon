@@ -40,6 +40,9 @@ useEffect(() => {
 
   return (
     <div className="main-component">
+      <h1 className="category-title">
+        {name === "bestSeller" ? "Best Sellers" : name}
+      </h1>
       <div className="cards-component">
         {currentCategoryProducts.map((product) => (
           <Card key={product.id} product={product} />
