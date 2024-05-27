@@ -73,13 +73,29 @@
     background-color: #f0f0f0;
 }
 
+.search-bar{
+    display: flex;
+    flex-direction: column;
+}
 
 .search_bar_container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
+}
+
+.search_result_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 10px 0px #000000;
+    position: absolute;
+    z-index: 1;
 }
 
 .search_bar_container input[type="text"] {

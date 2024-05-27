@@ -1,80 +1,45 @@
-import Arrows from './arrows'
-import './common.css'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Arrows from "./arrows";
+import "./common.css";
 
-function Crousel (data){
-  return (
-    <div className="crousel_component">
-        <div className="crousel_top">
-            <p>{data.info.itemname}</p>
-            <Arrows />
+function Crousel({ info }) {
+    const { itemname, products } = info;
+    const navigate = useNavigate();
+
+    const handleCardClick = (id) => {
+        navigate(`/product/${id}`);
+    };
+    return (
+        <div className="crousel_component">
+            <div className="crousel_top">
+                <p>{itemname}</p>
+                <Arrows />
+            </div>
+            <div className="crousel_bottom">
+                <div className="crousel_cards">
+                    {products && products.length > 0 ? (
+                        products.map((product, index) => (
+                            <div
+                                className="crousel_card"
+                                key={index}
+                                onClick={() => {
+                                    handleCardClick(product.id);
+                                }}
+                            >
+                                <img src={product.image} alt={product.name} />
+                                <div className="card_data">
+                                    <p>{product.productName}</p>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No products available</p>
+                    )}
+                </div>
+            </div>
         </div>
-        <div className="crousel_bottom">
-          <div className="crousel_cards">
-            {/*  loop for multiple cards */}
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-            <div className="crousel_card">
-                <img src= 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/526e878c-49fd-46a8-8d44-9019fac1071b/ja-1-day-basketball-shoes-8dQnK1.png' alt="image"/>
-                <div className="card_data">
-                    <p>{data.info.item}</p>
-                </div>
-            </div>
-          </div>
-        </div>
-    </div>
-  )
+    );
 }
 
-export default Crousel
+export default Crousel;

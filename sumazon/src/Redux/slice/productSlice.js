@@ -7,6 +7,34 @@ export const getProducts = createAsyncThunk(
     }
 );
 
+export const addToCart = createAsyncThunk(
+    'products/addToCart', async (data) => {
+        const response = await fetch(`/api/cart/`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+        );
+        return response.json();
+    }
+);
+
+export const removeFromCart = createAsyncThunk(
+    'products/removeFromCart', async (data) => {
+        const response = await fetch(`/api/cart`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        return response.json();
+    }
+);
+
 
 const initialState = {
     products: [],
@@ -42,15 +70,15 @@ export const productsSlice = createSlice({
             localStorage.setItem('currentProduct', JSON.stringify(action.payload));
         },
 
-        addToCart: (state, action) => {
-            const productId = action.payload;
-            if (state.productCart[productId]) {
-                state.productCart[productId] += 1; // Increment quantity if product already in cart
-            } else {
-                state.productCart[productId] = 1; // Add new product with quantity
-            }
-            localStorage.setItem('productCart', JSON.stringify(state.productCart));
-        },
+        // addToCart: (state, action) => {
+        //     const productId = action.payload;
+        //     if (state.productCart[productId]) {
+        //         state.productCart[productId] += 1; // Increment quantity if product already in cart
+        //     } else {
+        //         state.productCart[productId] = 1; // Add new product with quantity
+        //     }
+        //     localStorage.setItem('productCart', JSON.stringify(state.productCart));
+        // },
 
         removeOneFromCart: (state, action) => {
             const productId = action.payload;
@@ -78,8 +106,31 @@ export const productsSlice = createSlice({
                 // save to local storage
                 localStorage.setItem('products', JSON.stringify(action.payload));
             })
+
+            .addCase(addToCart.fulfilled, (state, action) => {
+                console.log('action.payload', action.payload);
+    
+                if (action.payload.status) {
+                    console.log('action.payload.cart', action.payload.data.cart);
+                    state.productCart = action.payload.data.cart;
+                    console.log('state.productCart', state.productCart);
+
+                    // Store the product cart in local storage
+                    localStorage.setItem('productCart', JSON.stringify(state.productCart));
+                } else
+                    state.status = 'Failed';
+            })
+
+            .addCase(removeFromCart.fulfilled, (state, action) => {
+                console.log('action.payload', action.payload);
+                if (action.payload.status) {
+                    state.productCart = action.payload.data.cart;
+                    localStorage.setItem('productCart', JSON.stringify(state.productCart));
+                } else
+                    state.status = 'Failed';
+            });
     }
 });
 
 export default productsSlice.reducer;
-export const { setCurrentProduct, addToCart, removeFromCart, removeOneFromCart } = productsSlice.actions;
+export const { setCurrentProduct, removeOneFromCart } = productsSlice.actions;

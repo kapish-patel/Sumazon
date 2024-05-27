@@ -4,26 +4,59 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../../Redux/slice/productSlice";
+import { useSelector } from "react-redux";
 import { addToCart, removeOneFromCart } from "../../Redux/slice/productSlice";
 import "./Cart.css";
 
 function CartItem({ product, quantity, subTotal }) {
     const dispatch = useDispatch();
 
-    const handleRemoveFromCart = (e) => {
-        e.stopPropagation();
-        dispatch(removeFromCart(product.id));
+    const currentCart = useSelector((state) => state.products.productCart);
+
+    const customer = useSelector((state) => state.customer.customerDetails);
+
+    const id = product.id;
+
+    const handleRemoveFromCart = () => {
+        console.log("Removing from cart", id);
+        dispatch(
+            removeFromCart({
+                id: id,
+                customer_id: customer.id,
+            })
+        );
     };
 
     const handleAddBtnClick = (e) => {
         e.stopPropagation();
-        dispatch(addToCart(product.id));
-    }
+        dispatch(
+            addToCart({
+                id: id,
+                customer_id: customer.id,
+                quantity: currentCart[id] ? currentCart[id] + 1 : 1,
+            })
+        );
+    };
 
     const handMinusBtnClick = (e) => {
         e.stopPropagation();
-        dispatch(removeOneFromCart(product.id));
-    }
+        if (currentCart[id] === 1) {
+            dispatch(
+                removeFromCart({
+                    id: id,
+                    customer_id: customer.id,
+                })
+            );
+            return;
+        }
+        dispatch(
+            addToCart({
+                id: id,
+                customer_id: customer.id,
+                quantity: currentCart[id] ? currentCart[id] - 1 : 1,
+            })
+        );
+    };
 
     return (
         <div className="cart-item-container">
@@ -52,10 +85,16 @@ function CartItem({ product, quantity, subTotal }) {
                         </button>
                     </div>
                     <div className="quantity-change-component">
-                        <div className="icon_container" onClick={handleAddBtnClick}>
+                        <div
+                            className="icon_container"
+                            onClick={handleAddBtnClick}
+                        >
                             <FontAwesomeIcon icon={faPlus} />
                         </div>
-                        <div className="icon_container" onClick={handMinusBtnClick}>
+                        <div
+                            className="icon_container"
+                            onClick={handMinusBtnClick}
+                        >
                             <FontAwesomeIcon icon={faMinus} />
                         </div>
                     </div>

@@ -1,4 +1,6 @@
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -7,6 +9,7 @@ import "./Userlogin.css";
 
 function UserLogin() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Accessing the authentication state from Redux store
   const isLoggedin = useSelector((state) => state.customer.isLoggedIn);
@@ -21,6 +24,11 @@ function UserLogin() {
     const credentials = { email: userEmail, password: userPassword };
     dispatch(loginCustomer(credentials));
   };
+
+  const handleHomeBtnClick = (e) => {
+    e.preventDefault();
+    navigate("/");
+  }
 
   return isLoggedin ? (
     <Navigate to="/" />
@@ -52,6 +60,9 @@ function UserLogin() {
             />
           </div>
           <div className="form-group">
+          <button type="submit" onClick={handleHomeBtnClick}>
+              Home
+            </button>
             <button type="submit" onClick={handleLogInBtnClick}>
               Login
             </button>

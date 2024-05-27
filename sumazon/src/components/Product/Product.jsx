@@ -11,7 +11,6 @@ import {
     setCurrentProduct,
     addToCart,
     removeFromCart,
-    removeOneFromCart,
 } from "../../Redux/slice/productSlice";
 
 import { useState } from "react";
@@ -25,6 +24,9 @@ function Product() {
         state.products.products.find((product) => product.id === id)
     );
 
+    // get user info
+    const customer = useSelector((state) => state.customer.customerDetails);
+
     // get the cart from the redux state
     const cart = useSelector((state) => state.products.productCart);
 
@@ -36,33 +38,65 @@ function Product() {
         (state) => state.products.currentSelectedProduct
     );
 
+    const currentCart = useSelector((state) => state.products.productCart);
+
     // Check if product is already in cart where cart is a map of product id and quantity
     const isProductInCart = cart[id] ? true : false;
 
     const [isAddedToCart, setIsAddedToCart] = useState(isProductInCart);
 
     const handleAddtoCartClick = () => {
-        dispatch(addToCart(id));
+        dispatch(
+            addToCart({
+                id: id,
+                customer_id: customer.id,
+                quantity: currentCart[id] ? currentCart[id] + 1 : 1,
+            })
+        );
         setIsAddedToCart(true);
     };
 
     const handleRemoveFromCart = () => {
         console.log("Removing from cart", id);
-        dispatch(removeFromCart(id));
+        dispatch(
+            removeFromCart({
+                id: id,
+                customer_id: customer.id,
+            })
+        );
         setIsAddedToCart(false);
     };
 
     const handleAddBtnClick = (e) => {
         e.stopPropagation();
-        dispatch(addToCart(product.id));
+        dispatch(
+            addToCart({
+                id: id,
+                customer_id: customer.id,
+                quantity: currentCart[id] ? currentCart[id] + 1 : 1,
+            })
+        );
     };
 
     const handMinusBtnClick = (e) => {
         e.stopPropagation();
-        dispatch(removeOneFromCart(product.id));
-        if (cart[product.id] === 1) {
+        if (currentCart[id] === 1) {
+            dispatch(
+                removeFromCart({
+                    id: id,
+                    customer_id: customer.id,
+                })
+            );
             setIsAddedToCart(false);
+            return;
         }
+        dispatch(
+            addToCart({
+                id: id,
+                customer_id: customer.id,
+                quantity: currentCart[id] ? currentCart[id] - 1 : 1,
+            })
+        );
     };
 
     return (

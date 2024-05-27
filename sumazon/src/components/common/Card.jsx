@@ -2,21 +2,30 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {addToCart} from '../../Redux/slice/productSlice';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import './Card.css';
 
 function Card({product}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const customer = useSelector((state) => state.customer.customerDetails);
+  const currentCart = useSelector((state) => state.products.productCart);
+
   const handleCardClick = () => {
     navigate(`/product/${product.id}`);
   };
 
-  const handleAddtoCartBtnClick = (e) => {
+  const handleAddtoCartClick = (e) => {
     e.stopPropagation();
-    dispatch(addToCart(product.id));
-  }
+    dispatch(
+        addToCart({
+            id: product.id,
+            customer_id: customer.id,
+            quantity: currentCart[product.id] ? currentCart[product.id] + 1 : 1,
+        })
+    );
+};
 
   return (
     <div className="card" onClick={handleCardClick}>
@@ -26,7 +35,7 @@ function Card({product}) {
         <p className="card-description">{product.description}</p>
         <div className="bottom-container">
           <p className="card-price">${product.price}</p>
-          <div className="form-group" onClick={handleAddtoCartBtnClick}>
+          <div className="form-group" onClick={handleAddtoCartClick}>
             <button>
               <ShoppingCartIcon /> Add to cart
             </button>
