@@ -88,6 +88,9 @@ function CartItem({ product, quantity, subTotal }) {
                         <div
                             className="icon_container"
                             onClick={handleAddBtnClick}
+                            style={{
+                                display: currentCart[id] >= product.quantity ? 'none' : 'flex'
+                            }}
                         >
                             <FontAwesomeIcon icon={faPlus} />
                         </div>

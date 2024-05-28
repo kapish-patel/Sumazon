@@ -35,6 +35,19 @@ export const removeFromCart = createAsyncThunk(
     }
 );
 
+export const checkoutCart = createAsyncThunk(
+    'products/checkoutCart', async (id) => {
+        const response = await fetch(`/api/cart/checkout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id })
+        });
+        return response.json();
+    }
+);
+
 
 const initialState = {
     products: [],
@@ -125,6 +138,15 @@ export const productsSlice = createSlice({
                 console.log('action.payload', action.payload);
                 if (action.payload.status) {
                     state.productCart = action.payload.data.cart;
+                    localStorage.setItem('productCart', JSON.stringify(state.productCart));
+                } else
+                    state.status = 'Failed';
+            })
+
+            .addCase(checkoutCart.fulfilled, (state, action) => {
+                console.log('action.payload', action.payload);
+                if (action.payload.status) {
+                    state.productCart = {};
                     localStorage.setItem('productCart', JSON.stringify(state.productCart));
                 } else
                     state.status = 'Failed';

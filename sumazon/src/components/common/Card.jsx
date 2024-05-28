@@ -27,6 +27,26 @@ function Card({product}) {
     );
 };
 
+  if (product.quantity === 0) {
+    return (
+      <div className="card">
+        <img src={product.image} alt={product.name} className="card-image" />
+        <div className="card-content">
+          <h2 className="card-title">{product.productName}</h2>
+          <p className="card-description">{product.description}</p>
+          <div className="bottom-container">
+            <p className="card-price">${product.price}</p>
+            <div className="form-group">
+              <button disabled>
+                <ShoppingCartIcon /> Out of stock
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="card" onClick={handleCardClick}>
       <img src={product.image} alt={product.name} className="card-image" />
