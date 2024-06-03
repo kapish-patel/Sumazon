@@ -8,6 +8,7 @@ function Category({ name }) {
 const dispatch = useDispatch();
 const products = useSelector((state) => state.products.products);
 const [currentCategoryProducts, setCurrentCategoryProducts] = useState([]);
+
 useEffect(() => {
     dispatch(getProducts());
 }, [dispatch]);
